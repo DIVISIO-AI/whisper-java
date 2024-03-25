@@ -22,28 +22,31 @@ which PyTorch library version, [see here](https://djl.ai/engines/pytorch/pytorch
 
 Add the following to your pom file: 
 
-    <!-- DIVISIO Repo with the lib and model jars (not available on maven central due to size restrictions) -->
-    TODO: DIVISIO repo
+```xml
+<!-- DIVISIO Repo with the lib and model jars (not available on maven central due to size restrictions) -->
+TODO: DIVISIO repo
 
-    <!-- Library dependency to run the mode -->
-    TODO: lib dependency
+<!-- Library dependency to run the mode -->
+TODO: lib dependency
 
-    <!-- Dependency to the traced whisper 3 GPU model -->
-    TODO: model dependency
+<!-- Dependency to the traced whisper 3 GPU model -->
+TODO: model dependency
+```
 
 Use the model like this: 
+```java
+import divisio.whisper3.Whisper3
 
-    import divisio.whisper3.Whisper3
+try (Whisper whisper = Whisper.instance()) {
+    WhisperResult result = whisper.task()
+            .language(Whisper3Language.AUTO)
+            .transcribe("/path/to/my_audio_file.wav")
+            .withTimestamps()
+            .execute();
 
-    try (Whisper whisper = Whisper.instance()) {
-        WhisperResult result = whisper.task()
-                .language(Whisper3Language.AUTO)
-                .transcribe("/path/to/my_audio_file.wav")
-                .withTimestamps()
-                .execute();
-
-        System.out.println(result.text());
-    }
+    System.out.println(result.text());
+}
+```
 
 Initiating Whisper is expensive, so instances should be reused, e.g. by instantiating them as a spring bean singleton.
 
@@ -55,5 +58,5 @@ the original Python code as a reference.
 
 ## License
 
-This library is licensed under the Apache 2.0 license (see LICENSE.txt). 
+This library is licensed under the Apache 2.0 license (see LICENSE). 
 
