@@ -33,22 +33,40 @@ TODO: lib dependency
 TODO: model dependency
 ```
 
-Use the model like this: 
+Create a demo class like this:
+
 ```java
-import divisio.whisper3.Whisper3
+package divisio.whisper;
 
-try (Whisper whisper = Whisper.instance()) {
-    WhisperResult result = whisper.task()
-            .language(Whisper3Language.AUTO)
-            .transcribe("/path/to/my_audio_file.wav")
-            .withTimestamps()
-            .execute();
+import divisio.whisper.token.Whisper3Language;
+import divisio.whisper.token.WhisperToken;
 
-    System.out.println(result.text());
+import java.util.Arrays;
+
+public class WhisperDemo {
+
+    public static void main(String[] args) throws Exception {
+        final String filePath = args[0];
+
+        try (Whisper3 whisper = Whisper3.instance()) {
+            WhisperResult result = whisper.task()
+                    .language(Whisper3Language.AUTO)
+                    .transcribe(filePath)
+                    .withTimestamps()
+                    .execute();
+
+            System.out.println("raw token ids: " + Arrays.toString(result.tokens().stream().mapToLong(WhisperToken::getTokenId).toArray()));
+            System.out.println("raw text: " + result.rawText());
+            System.out.println("clean: " + result.text());
+        }
+    }
 }
 ```
 
-Initiating Whisper is expensive, so instances should be reused, e.g. by instantiating them as a spring bean singleton.
+And start the program with a parameter pointing to an audio file like `/path/to/my_audio_file.wav`.
+
+**Initiating Whisper is expensive, so instances should be reused**, e.g. by instantiating them as a spring bean singleton.
+Additionally, the first tasks might take a little bit longer than usual, due to internal warm-ups.
 
 ## Credits
 
