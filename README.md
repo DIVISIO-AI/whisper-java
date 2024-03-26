@@ -1,8 +1,9 @@
 # Whisper v3 Java Lib using DJL
 
 Library to run inference of [Whisper v3](https://github.com/openai/whisper) in Java using [DJL](https://djl.ai/). 
-This implementation is based on the [huggingface Python implementation of Whisper.](https://huggingface.co/openai/whisper-large-v3)
-Currently only runs on GPU. 
+This implementation is based on the [huggingface Python implementation of Whisper v3 large.](https://huggingface.co/openai/whisper-large-v3)
+
+**Currently only runs on GPU.**
 
 The library has the ability to run inference on the GPU in Java out of the box.
 
