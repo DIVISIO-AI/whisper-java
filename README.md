@@ -24,14 +24,39 @@ which PyTorch library version, [see here](https://djl.ai/engines/pytorch/pytorch
 Add the following to your pom file: 
 
 ```xml
-<!-- DIVISIO Repo with the lib and model jars (not available on maven central due to size restrictions) -->
-TODO: DIVISIO repo
+<!--
+    Note: 
+    Maven central has file size restrictions, therefore the libs are currently 
+    on the DIVISIO repository (because of the large whisper-model dependency).
+-->
+<repositories>
+    <repository>
+        <id>DIVISIO</id>
+        <url>https://mvn.divis.io/</url>
+    </repository>
+</repositories>
 
-<!-- Library dependency to run the mode -->
-TODO: lib dependency
+<!-- Whisper library -->
+<dependency>
+    <groupId>divisio</groupId>
+    <artifactId>whisper-java</artifactId>
+    <version>0.1</version>
+</dependency>
 
-<!-- Dependency to the traced whisper 3 GPU model -->
-TODO: model dependency
+<!-- Large Whisper model file (might take a bit to download, around 3.3GB) -->
+<dependency>
+    <groupId>divisio</groupId>
+    <artifactId>whisper-model</artifactId>
+    <version>0.1</version>
+</dependency>
+
+<!-- You will also need a matching DJL PyTorch engine for your system -->
+<dependency>
+    <groupId>ai.djl.pytorch</groupId>
+    <artifactId>pytorch-native-cu121</artifactId>
+    <version>2.1.1</version>
+    <scope>runtime</scope>
+</dependency>
 ```
 
 Create a demo class like this:
