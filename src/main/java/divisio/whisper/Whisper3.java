@@ -125,7 +125,7 @@ public class Whisper3 implements AutoCloseable {
     private Whisper3(Path path, Device device) {
         // early out for non-GPU until we get a CPU version running
         if (!device.isGpu()) {
-            throw new IllegalStateException("Currently, Whisper only works on GPU.");
+            throw new IllegalStateException("Currently, Whisper for Java only works on GPU.");
         }
 
         this.basePath = path;
